@@ -9,3 +9,47 @@
  * 
  * display the attendance data using console.log.
  */
+
+type employee = {
+    id : string
+    name : string
+    dot : string
+    checkInTime : string
+    checkOutTime : string
+    totalWorkHours : number
+    present : boolean
+}
+
+const prabu : employee = {
+    id: '542251396',
+    name: 'Pranu Prabru Prapre',
+    dot: '15-2-2026',
+    checkInTime: "05.00 WIB",
+    checkOutTime: "00.00 WIB",
+    totalWorkHours: 19,
+    present: false
+}
+
+const fatih : employee = {
+    id: '542251182',
+    name: 'Fatty Blacky',
+    dot: '13-5-2026',
+    checkInTime: "23.59 WIB",
+    checkOutTime: "00.00 WIB",
+    totalWorkHours: 0.01,
+    present: true
+}
+
+const zahira : employee = {
+    id: '542251399',
+    name: 'Aratace yes',
+    dot: '16-2-2026',
+    checkInTime: "00.00 WIB",
+    checkOutTime: "00.00 WIB",
+    totalWorkHours: 0,
+    present: true
+}
+
+console.log(zahira)
+console.log(fatih)
+console.log(prabu)

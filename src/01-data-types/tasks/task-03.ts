@@ -9,3 +9,30 @@
  * 
  * display the student data using console.log.
  */
+
+type student = {
+    studentID : string
+    name : string
+    age : number
+    isActive : boolean
+}
+const mokleters : student[] = [{
+    studentID : '542251392',
+    name : 'Okka Adelard Syahbarr',
+    age : 16,
+    isActive : true
+},
+{
+    studentID: '542251182',
+    name : 'Fatih Lintang Adzhahabi',
+    age : 16,
+    isActive: false
+},{
+    studentID: '542251396',
+    name : 'Prabu Panedya Firdaus Putra Aglar',
+    age : 16,
+    isActive: false
+} 
+]
+
+console.log(mokleters)
