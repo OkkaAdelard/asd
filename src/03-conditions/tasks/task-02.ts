@@ -14,3 +14,18 @@
  * 3. Display the evaluation result. If eligible will display "Bonus Approved", 
  * otherwise display "Bonus not approved"
  */
+
+
+const employeeName: string = "Dimas Pratama";
+const performanceScore: number = 78;
+
+
+if (performanceScore >= 80) {
+    console.log("Employee Name :", employeeName);
+    console.log("Performance Score :", performanceScore);
+    console.log("Bonus Approved");
+} else {
+    console.log("Employee Name :", employeeName);
+    console.log("Performance Score :", performanceScore);
+    console.log("Bonus not approved");
+}

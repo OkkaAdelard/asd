@@ -13,3 +13,17 @@
  * - Discount amount
  * - Final payment
  */
+
+const ratePerHour : number = 8000
+//discount ammount
+const discount : number = 15*100
+//total playing in minute
+const totalPlayingTime : number = (7*60) +35
+//remaining minutes after full hour
+const remainingMinutes : number = totalPlayingTime % 60
+//total pay before discount
+const totalPay : number = ratePerHour / (totalPlayingTime / 60)
+//total pay after discound
+const payAfterDiscount : number = totalPlayingTime > 5 ? totalPay - (totalPay * discount) : totalPay
+
+
