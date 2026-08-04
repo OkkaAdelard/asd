@@ -15,3 +15,11 @@
  * 3. After the loop finishes, display: "Attendance verification completed"
 
  */
+
+console.log("\nStudent Attendance");
+let count = 1;
+while (count <= 30) {
+  console.log(`Checking attendance for Student #${count}`);
+  count++;
+}
+console.log("Attendance verification completed.");

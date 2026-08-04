@@ -8,6 +8,8 @@
  * - Calculate the attendance percentage.
  */
 
+import { count } from "node:console";
+
 const attendances = [
   { name: "Alya", present: true },
   { name: "Budi", present: true },
@@ -18,3 +20,23 @@ const attendances = [
   { name: "Gita", present: true },
   { name: "Hana", present: false }
 ];
+
+let presentCount = 0;
+let absentCount = 0;
+
+console.log("Absent Students:");
+
+for (let i = 0; i < attendances.length; i++) {
+  if (attendances[i].present) {
+    presentCount++;
+  } else {
+    absentCount++;
+    console.log("- " + attendances[i].name);
+  }
+}
+
+const attendancePercentage = (presentCount / attendances.length) * 100;
+
+console.log("\nPresent Students :", presentCount);
+console.log("Absent Students  :", absentCount);
+console.log("Attendance       :", attendancePercentage + "%");
