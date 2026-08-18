@@ -18,3 +18,17 @@ const prices = [
     420000,
     125000
 ];
+
+function calculateTotalPrice(prices: number[]): number {
+    let totalPrice = 0;
+
+    for (let i = 0; i < prices.length; i++) {
+        totalPrice += prices[i];
+    }
+
+    return totalPrice;
+}
+
+const totalPrice = calculateTotalPrice(prices);
+
+console.log("Total Purchase Amount:", totalPrice);

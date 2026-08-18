@@ -11,7 +11,13 @@
  * Complete following functions!
  */
 
-const students = [
+type Student = {
+  name: string,
+  major: string,
+  active: boolean,
+}
+
+const students: Student[] = [
   {
     name: "Alya",
     major: "Software Engineering",
@@ -39,18 +45,65 @@ const students = [
   }
 ];
 
-function countActiveStudents(...){
+function countActiveStudents(arr: Student[]): number {
+  let active = 0;
 
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].active) {
+      active++;
+    }
+  }
+  return active;
 }
 
-function countInactiveStudents(...){
+function countInactiveStudents(arr: Student[]): number {
+  let inactive = 0;
 
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].active) {
+      inactive++;
+    }
+  }
+  return inactive;
 }
 
-function countStudentsByMajor(...){
+function softwareEngineeringStudents(arr: Student[]): number {
+  let total = 0;
 
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].major === "Software Engineering") {
+      total++;
+    }
+  }
+  return total;
 }
 
-function printEnrollmentReport(...){
-    
+function networkingStudents(arr: Student[]): number {
+  let total = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].major === "Networking") {
+      total++;
+    }
+  }
+  return total;
 }
+
+function multimediaStudents(arr: Student[]): number {
+  let total = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].major === "Multimedia") {
+      total++;
+    }
+  }
+  return total;
+}
+
+console.log("===== University Enrollment Report =====");
+console.log("Total Students               :", students.length);
+console.log("Active Students              :", countActiveStudents(students));
+console.log("Inactive Students            :", countInactiveStudents(students));
+console.log("Software Engineering Students:", softwareEngineeringStudents(students));
+console.log("Networking Students          :", networkingStudents(students));
+console.log("Multimedia Students          :", multimediaStudents(students));
