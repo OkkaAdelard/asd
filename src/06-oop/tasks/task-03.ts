@@ -29,3 +29,71 @@
  *   - isAvailable()
  * - implement class with at least 2 objects
  */
+
+class Book {
+    private status: string
+
+    constructor(
+        public isbn: string,
+        public title: string,
+        public author: string,
+        public totalPages: number
+    ) {
+        this.status = "available"
+    }
+
+    borrow(): void {
+        if (this.status === "available") {
+            this.status = "borrowed"
+            console.log(`${this.title} has been borrowed.`)
+        } else {
+            console.log(`${this.title} cannot be borrowed.`)
+        }
+    }
+
+    returnBook(): void {
+        if (this.status === "borrowed") {
+            this.status = "available"
+            console.log(`${this.title} has been returned.`)
+        } else {
+            console.log(`${this.title} cannot be returned.`)
+        }
+    }
+
+    showInfo(): void {
+        console.log("ISBN:", this.isbn)
+        console.log("Title:", this.title)
+        console.log("Author:", this.author)
+        console.log("Total Pages:", this.totalPages)
+        console.log("Status:", this.status)
+        console.log("--------------------")
+    }
+
+    isAvailable(): boolean {
+        return this.status === "available"
+    }
+}
+
+const books: Book[] = [
+    new Book(
+        "978-001",
+        "The Hobbit",
+        "J.R.R. Tolkien",
+        310
+    ),
+    new Book(
+        "978-002",
+        "Harry Potter",
+        "J.K. Rowling",
+        400
+    )
+]
+
+books[0].borrow()
+books[1].borrow()
+
+books[0].returnBook()
+
+books.forEach(book => {
+    book.showInfo()
+})

@@ -24,23 +24,28 @@ const scores = [85, 72, 91, 64, 88];
  * Instead of creating different looping functions, create one reusable 
  * function that receives the processing logic as a callback.
  */
-
 function processScores(
     scores: number[],
     callback: (score: number) => void
 ): void {
-    // implementation
+    scores.forEach(callback);
 }
 
-function printScore(score: number) {
-    // implementation
+function printScore(score: number): void {
+    console.log(`Score: ${score}`);
 }
 
-function showGrade(score: number) {
-    // implementation
+function showGrade(score: number): void {
+    if (score >= 90) {
+        console.log(`Score ${score}: A`);
+    } else if (score >= 80) {
+        console.log(`Score ${score}: B`);
+    } else if (score >= 70) {
+        console.log(`Score ${score}: C`);
+    } else {
+        console.log(`Score ${score}: D`);
+    }
 }
 
-
-// implementation of callback function
-processScores(scores, printScore)
-processScores(scores, showGrade)
+processScores(scores, printScore);
+processScores(scores, showGrade);

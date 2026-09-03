@@ -35,3 +35,38 @@ const orders = [
         ],
     },
 ];
+
+const completedOrders = orders.filter(order => order.status === "completed");
+
+const orderTotals = completedOrders.map(order => ({
+    customer: order.customer,
+    total: order.items.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+    )
+}
+)
+)
+
+const highestSpender = orderTotals.reduce((max, order) =>
+    order.total > max.total ? order : max
+)
+
+const totalRevenue = orderTotals.reduce(
+    (sum, order) => sum + order.total,
+    0
+)
+
+const purchasedProducts = [
+    ...new Set(
+        completedOrders.flatMap(order =>
+            order.items.map(item => item.product)
+        )
+    )
+];
+
+console.log("Completed Orders:", completedOrders);
+console.log("Order Totals:", orderTotals);
+console.log("Customer Who Spent Most:", highestSpender);
+console.log("Total Revenue:", totalRevenue);
+console.log("Purchased Products:", purchasedProducts);

@@ -38,3 +38,65 @@
  * - Amount must be greater than 0.
  * - Amount cannot exceed the current balance.
  */
+
+class DigitalWallet {
+    private balance: number
+
+    constructor(
+        public walletId: string,
+        public owner: string,
+        initialBalance: number
+    ) {
+        this.balance = initialBalance
+    }
+
+    deposit(amount: number): void {
+        if (amount <= 0) {
+            console.log("Deposit amount must be greater than 0.")
+            return
+        }
+
+        this.balance += amount
+        console.log(`Rp${amount.toLocaleString()} deposited successfully.`)
+    }
+
+    withdraw(amount: number): void {
+        if (amount <= 0) {
+            console.log("Withdrawal amount must be greater than 0.")
+            return
+        }
+
+        if (amount > this.balance) {
+            console.log("Insufficient balance.")
+            return
+        }
+
+        this.balance -= amount
+        console.log(`Rp${amount.toLocaleString()} withdrawn successfully.`)
+    }
+
+    getBalance(): number {
+        return this.balance
+    }
+
+    showWalletInfo(): void {
+        console.log("Wallet ID:", this.walletId)
+        console.log("Owner:", this.owner)
+        console.log("Balance:", `Rp${this.balance.toLocaleString()}`)
+    }
+}
+
+const wallet1 = new DigitalWallet(
+    "WAL001",
+    "Harry Maguire",
+    500000
+)
+
+wallet1.showWalletInfo()
+console.log("--------------------")
+wallet1.deposit(200000)
+console.log("Current Balance:", `Rp${wallet1.getBalance().toLocaleString()}`)
+wallet1.withdraw(100000)
+console.log("Current Balance:", `Rp${wallet1.getBalance().toLocaleString()}`)
+wallet1.withdraw(1000000)
+wallet1.showWalletInfo()

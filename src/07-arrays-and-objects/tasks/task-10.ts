@@ -72,3 +72,87 @@ const submissions = [
     },
 ];
 
+const studentScores = submissions.map(submission => {
+  const correct = submission.answers.filter(answer => {
+    const question = questions.find(q => q.id === answer.questionId);
+    return question?.correctAnswer === answer.answer;
+  }).length;
+
+  return {
+    student: submission.student,
+    score: correct * 25,
+  };
+});
+
+const answerResults = submissions.map(submission => {
+  const correct = submission.answers.filter(answer => {
+    const question = questions.find(q => q.id === answer.questionId);
+    return question?.correctAnswer === answer.answer;
+  }).length;
+
+  return {
+    student: submission.student,
+    correct,
+    wrong: submission.answers.length - correct,
+  };
+});
+
+const categories = [...new Set(questions.map(question => question.category))];
+
+const categoryAverage = categories.map(category => {
+  const categoryQuestions = questions.filter(
+    question => question.category === category
+  );
+
+  const categoryScores = submissions.map(submission => {
+    const correct = submission.answers.filter(answer => {
+      const question = questions.find(q => q.id === answer.questionId);
+      return (
+        question?.category === category &&
+        question.correctAnswer === answer.answer
+      );
+    }).length;
+
+    return (correct / categoryQuestions.length) * 100;
+  });
+
+  return {
+    category,
+    averageScore:
+      categoryScores.reduce((sum, score) => sum + score, 0) /
+      categoryScores.length,
+  };
+});
+
+const scores = studentScores.map(student => student.score);
+
+const highestScore = Math.max(...scores);
+const lowestScore = Math.min(...scores);
+
+const passedStudents = studentScores.filter(
+  student => student.score >= 75
+).length;
+
+const failedStudents = studentScores.filter(
+  student => student.score < 75
+).length;
+
+const averageScore =
+  scores.reduce((sum, score) => sum + score, 0) / scores.length;
+
+const finalAnalytics = {
+  totalStudents: submissions.length,
+  averageScore: Number(averageScore.toFixed(2)),
+  highestScore,
+  lowestScore,
+  passedStudents,
+  failedStudents,
+  passRate: Number(
+    ((passedStudents / submissions.length) * 100).toFixed(2)
+  ),
+};
+
+console.log("Student Scores:", studentScores);
+console.log("Answer Results:", answerResults);
+console.log("Category Average:", categoryAverage);
+console.log("Final Analytics:", finalAnalytics);

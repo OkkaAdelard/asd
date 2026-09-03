@@ -21,12 +21,19 @@
  * Students should create at least three callbacks below.
  * The processing function should not contain the HR business rules.
  */
+
 type Employee = {
     name: string
     salary: number
     performance: number
 }
-type PERFORMANCE_STATUS = "Exceeds Expectations" | "Meets Expectations" | "Needs Improvement"
+
+type PERFORMANCE_STATUS =
+    | "Exceeds Expectations"
+    | "Meets Expectations"
+    | "Needs Improvement"
+    | "Unsatisfactory"
+
 type EMPLOYEE_BONUS = Employee & { bonus: number }
 type EMPLOYEE_PERFORMANCE = Employee & { status: PERFORMANCE_STATUS }
 
@@ -36,29 +43,68 @@ const employees: Employee[] = [
     { name: "Citra", salary: 7200000, performance: 88 },
     { name: "Dimas", salary: 4500000, performance: 95 },
     { name: "Eka", salary: 8000000, performance: 69 }
-];
+]
 
 
 function calculateFinalSalary(selectedEmployee: Employee): EMPLOYEE_BONUS {
-    // implementation: this function return employee data with bonus and updated final salary
-    return;
+    let bonus = 0
+
+    if (selectedEmployee.performance >= 90) {
+        bonus = selectedEmployee.salary * 0.15
+    } else if (selectedEmployee.performance >= 80) {
+        bonus = selectedEmployee.salary * 0.10
+    } else if (selectedEmployee.performance >= 70) {
+        bonus = selectedEmployee.salary * 0.05
+    }
+
+    return {
+        ...selectedEmployee,
+        salary: selectedEmployee.salary + bonus,
+        bonus: bonus
+    }
 }
-function getPerformanceStatus(selectedEmployee: Employee): EMPLOYEE_PERFORMANCE {
-    return;
+
+
+function getPerformanceStatus(
+    selectedEmployee: Employee
+): EMPLOYEE_PERFORMANCE {
+
+    let status: PERFORMANCE_STATUS
+
+    if (selectedEmployee.performance >= 90) {
+        status = "Exceeds Expectations"
+    } else if (selectedEmployee.performance >= 80) {
+        status = "Meets Expectations"
+    } else if (selectedEmployee.performance >= 70) {
+        status = "Needs Improvement"
+    } else {
+        status = "Unsatisfactory"
+    }
+
+    return {
+        ...selectedEmployee,
+        status: status
+    }
 }
+
 
 function employeeProcess<T>(
     arr: Employee[],
     callback: (employee: Employee) => T
 ): T[] {
-    return;
+    return arr.map(callback)
 }
 
-const employeeWithFinalSalary = employeeProcess(employees, calculateFinalSalary)
-const employeeWithPerformanceStatus = employeeProcess(employees, getPerformanceStatus)
 
-console.log(`====== EMPLOYEES WITH FINAL SALARY + BONUS ======`);
+const employeeWithFinalSalary =
+    employeeProcess(employees, calculateFinalSalary)
+
+const employeeWithPerformanceStatus =
+    employeeProcess(employees, getPerformanceStatus)
+
+
+console.log(`====== EMPLOYEES WITH FINAL SALARY + BONUS ======`)
 console.log({ employees: employeeWithFinalSalary })
-console.log(`====== EMPLOYEES WITH PERFORMANCE STATUS ======`);
-console.log({ employees: employeeWithPerformanceStatus })
 
+console.log(`====== EMPLOYEES WITH PERFORMANCE STATUS ======`)
+console.log({ employees: employeeWithPerformanceStatus })

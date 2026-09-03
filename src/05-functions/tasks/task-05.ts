@@ -44,3 +44,4 @@ function calculateAverage(scores: number[]): number {
 function countPassedStudents(scores: number[]): number {
 
 }
+

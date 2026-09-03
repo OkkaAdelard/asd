@@ -92,3 +92,151 @@ const enrollments = [
         duration: 20
     }
 ];
+
+
+type Enrollment = {
+    student: string;
+    course: string;
+    completed: boolean;
+    score: number;
+    duration: number;
+};
+
+function getTotalEnrollments(enrollments: Enrollment[]): number {
+    return enrollments.length;
+}
+
+function getCompletedEnrollments(enrollments: Enrollment[]): number {
+    return enrollments.filter(enrollment => enrollment.completed).length;
+}
+
+function getIncompleteEnrollments(enrollments: Enrollment[]): number {
+    return enrollments.filter(enrollment => !enrollment.completed).length;
+}
+
+function getCompletionPercentage(enrollments: Enrollment[]): number {
+    return (
+        getCompletedEnrollments(enrollments) /
+        getTotalEnrollments(enrollments)
+    ) * 100;
+}
+
+function getHighestScore(enrollments: Enrollment[]): number {
+    return Math.max(...enrollments.map(enrollment => enrollment.score));
+}
+
+function getLowestScore(enrollments: Enrollment[]): number {
+    return Math.min(...enrollments.map(enrollment => enrollment.score));
+}
+
+function getAverageScore(enrollments: Enrollment[]): number {
+    const totalScore = enrollments.reduce(
+        (total, enrollment) => total + enrollment.score,
+        0
+    );
+
+    return totalScore / getTotalEnrollments(enrollments);
+}
+
+function getPassingStudents(enrollments: Enrollment[]): string[] {
+    return enrollments
+        .filter(enrollment => enrollment.score >= 75)
+        .map(enrollment => enrollment.student);
+}
+
+function getStudentsByCourse(
+    enrollments: Enrollment[],
+    course: string
+): number {
+    return enrollments.filter(
+        enrollment => enrollment.course === course
+    ).length;
+}
+
+function getAverageScoreByCourse(
+    enrollments: Enrollment[],
+    course: string
+): number {
+    const courseEnrollments = enrollments.filter(
+        enrollment => enrollment.course === course
+    );
+
+    const totalScore = courseEnrollments.reduce(
+        (total, enrollment) => total + enrollment.score,
+        0
+    );
+
+    return totalScore / courseEnrollments.length;
+}
+
+function getTotalLearningHours(enrollments: Enrollment[]): number {
+    const totalMinutes = enrollments.reduce(
+        (total, enrollment) => total + enrollment.duration,
+        0
+    );
+
+    return totalMinutes / 60;
+}
+
+function getAverageLearningDuration(enrollments: Enrollment[]): number {
+    const totalDuration = enrollments.reduce(
+        (total, enrollment) => total + enrollment.duration,
+        0
+    );
+
+    return totalDuration / getTotalEnrollments(enrollments);
+}
+
+function getCourses(enrollments: Enrollment[]): string[] {
+    return [...new Set(enrollments.map(enrollment => enrollment.course))];
+}
+
+function printCompletionStatistics(enrollments: Enrollment[]): void {
+    console.log("===== COMPLETION STATISTICS =====");
+    console.log("Total Enrollments:", getTotalEnrollments(enrollments));
+    console.log("Completed Enrollments:", getCompletedEnrollments(enrollments));
+    console.log("Incomplete Enrollments:", getIncompleteEnrollments(enrollments));
+    console.log(
+        "Completion Percentage:",
+        getCompletionPercentage(enrollments).toFixed(2) + "%"
+    );
+}
+
+function printDashboard(enrollments: Enrollment[]): void {
+    console.log("\n===== ACADEMIC STATISTICS =====");
+    console.log("Highest Score:", getHighestScore(enrollments));
+    console.log("Lowest Score:", getLowestScore(enrollments));
+    console.log("Average Score:", getAverageScore(enrollments).toFixed(2));
+
+    console.log("Passing Students:");
+    getPassingStudents(enrollments).forEach(student => {
+        console.log("-", student);
+    });
+
+    console.log("\n===== COURSE STATISTICS =====");
+    getCourses(enrollments).forEach(course => {
+        console.log(course);
+        console.log(
+            "Students Enrolled:",
+            getStudentsByCourse(enrollments, course)
+        );
+        console.log(
+            "Average Score:",
+            getAverageScoreByCourse(enrollments, course).toFixed(2)
+        );
+    });
+
+    console.log("\n===== LEARNING STATISTICS =====");
+    console.log(
+        "Total Learning Hours:",
+        getTotalLearningHours(enrollments).toFixed(2)
+    );
+    console.log(
+        "Average Learning Duration:",
+        getAverageLearningDuration(enrollments).toFixed(2),
+        "minutes"
+    );
+}
+
+printCompletionStatistics(enrollments);
+printDashboard(enrollments);

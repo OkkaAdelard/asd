@@ -46,3 +46,29 @@ const transactions = [
  *   - Pending transactions → 1%
  *   - Cancelled transactions → 0%
  */
+
+const customerNames = transactions.map(transaction => transaction.customer);
+
+const transactionCategories = transactions.map(transaction => {
+    if (transaction.amount >= 2000000) {
+        return "HIGH VALUE";
+    } else if (transaction.amount >= 1000000) {
+        return "MEDIUM VALUE";
+    } else {
+        return "LOW VALUE";
+    }
+});
+
+const platformFees = transactions.map(transaction => {
+    if (transaction.status === "paid") {
+        return transaction.amount * 0.02;
+    } else if (transaction.status === "pending") {
+        return transaction.amount * 0.01;
+    } else {
+        return 0;
+    }
+});
+
+console.log(customerNames);
+console.log(transactionCategories);
+console.log(platformFees);
